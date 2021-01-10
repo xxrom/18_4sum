@@ -12,11 +12,14 @@ class Solution:
     seen = set()
 
     for i in range(startIndex, len(nums)):
+      if i > startIndex and nums[i - 1] == nums[i]:
+        continue
 
       diff = target - nums[i]
 
       if diff in seen:
-        print('found solution', c, d, diff, nums[i])
+        self.found += 1
+        print('found solution', self.found, ' / ', c, d, diff, nums[i])
         self.ans.add((c, d, diff, nums[i]))
 
       seen.add(nums[i])
@@ -27,11 +30,22 @@ class Solution:
 
     # a + b + c + d = target
 
+    nums.sort()
+
+    print(nums)
+
     size = len(nums)
     self.ans = set()
+    self.found = 0
 
     for i in range(size):
+      if i > 0 and nums[i - 1] == nums[i]:
+        continue
+
       for j in range(i + 1, size):
+        if j > i + 1 and nums[j - 1] == nums[j]:
+          continue
+
         c = nums[i]
         d = nums[j]
 
@@ -45,7 +59,10 @@ class Solution:
 
 
 my = Solution()
-n = [1, 0, -1, 0, -2, 2]
+n = [
+    1, 1, 1, 1, -100, 1, -100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0, -2, 2
+]
 t = 0
 
 trueAns = [[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]
